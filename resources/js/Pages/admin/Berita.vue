@@ -184,7 +184,7 @@ export default {
 
     const fetchBerita = async () => {
       try {
-        const res = await axios.get('http://127.0.0.1:8000/api/berita')
+        const res = await axios.get('https://web-production-39b5.up.railway.app/api/berita')
         berita.value = res.data.data.map(item => ({
           id: item.id,
           position: item.id,
@@ -209,7 +209,7 @@ export default {
 
     const saveBerita = async () => {
       try {
-        await axios.put(`http://127.0.0.1:8000/api/berita/${editingBerita.value.id}`, {
+        await axios.put(`https://web-production-39b5.up.railway.app/api/berita/${editingBerita.value.id}`, {
           judul: editingBerita.value.title,
           foto: editingBerita.value.image,
           link: editingBerita.value.link
@@ -228,8 +228,8 @@ export default {
       try {
         const endpoint =
           item.status === 'published'
-            ? `http://127.0.0.1:8000/api/berita/${item.id}/archive`
-            : `http://127.0.0.1:8000/api/berita/${item.id}/published`
+            ? `https://web-production-39b5.up.railway.app/api/berita/${item.id}/archive`
+            : `https://web-production-39b5.up.railway.app/api/berita/${item.id}/published`
 
         const res = await axios.put(endpoint)
 

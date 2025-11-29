@@ -86,7 +86,7 @@ export default {
   methods: {
     async loadCommunityFromAPI() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/komunitas");
+        const response = await axios.get("https://web-production-39b5.up.railway.app/api/komunitas");
         const data = response.data.data;
 
         this.communityCards = data
@@ -103,7 +103,7 @@ export default {
 
     async loadVolunteerFromAPI() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/events");
+        const response = await axios.get("https://web-production-39b5.up.railway.app/api/events");
         const data = response.data.data;
 
         this.volunteerCards = data

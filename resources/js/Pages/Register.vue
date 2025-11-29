@@ -104,7 +104,7 @@ export default {
             if (Object.keys(this.errors).length > 0) return;
 
             try {
-                const res = await axios.post("http://127.0.0.1:8000/api/register", {
+                const res = await axios.post("https://web-production-39b5.up.railway.app/api/register", {
                     email: this.form.email,
                     username: this.form.username,
                     password: this.form.password,

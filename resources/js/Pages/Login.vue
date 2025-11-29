@@ -122,7 +122,7 @@ export default {
       this.errorMessage = ""
 
       try {
-        const res = await axios.post("http://127.0.0.1:8000/api/login", {
+        const res = await axios.post("https://web-production-39b5.up.railway.app/api/login", {
           email: this.loginData.email,
           password: this.loginData.password
         })
