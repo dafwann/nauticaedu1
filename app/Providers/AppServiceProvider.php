@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Jika ada service container binding khusus bisa ditambahkan di sini
     }
 
     /**
@@ -23,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Paksa Laravel generate URL HTTPS saat di production
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
+
+        // Tambahan optional: jika ingin generate asset pakai secure URL
+        // URL::forceRootUrl(config('app.url'));
     }
 }
