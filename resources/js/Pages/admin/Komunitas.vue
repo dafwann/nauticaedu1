@@ -176,7 +176,7 @@ export default {
 
   setup() {
 
-    const API_BASE = "https://web-production-39b5.up.railway.app/api/komunitas"; // GANTI JIKA HOST BERBEDA
+    const API_BASE = "https://web-production-39b5.up.railway.app/api"; // GANTI JIKA HOST BERBEDA
 
     const komunitas = ref([]);
     const showAddKomunitas = ref(false);

@@ -4,83 +4,80 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\KomunitasController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminController;
+
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-| Semua route API masuk di sini
+| PUBLIC ROUTES (TANPA LOGIN)
 |--------------------------------------------------------------------------
 */
 
-// --- AUTH ---
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// --- RESET PASSWORD ---
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
-
-// --- ROUTE DILINDUNGI LOGIN ---
-Route::middleware('auth:sanctum')->group(function() {
-
-    // data user yang sedang login
-    Route::get('/profile', function(Request $request) {
-        return $request->user();
-    });
-
-    // logout
-    Route::post('/logout', [AuthController::class, 'logout']);
-});
-
-
-// --- (OPSI) ROUTE ADMIN ---
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
-
-    Route::get('/admin/dashboard', function() {
-        return ['message' => 'Welcome, admin!'];
-    });
-
-});
-
-Route::middleware(['auth:api', 'is.admin'])->get('/admin/data', function () {
-    return "Hai admin!";
-});
-
-
-
-// ADMIN
-Route::get('/berita', [BeritaController::class, 'index']);
-Route::post('/berita', [BeritaController::class, 'store']);
-Route::put('/berita/{id}', [BeritaController::class, 'update']);
-Route::put('/berita/{id}/archive', [BeritaController::class, 'archive']);
-Route::put('/berita/{id}/published', [BeritaController::class, 'publish']);
-// USER
+// homepage user
 Route::get('/homepage-berita', [BeritaController::class, 'homepage']);
 
 
 
-use App\Http\Controllers\KomunitasController;
+/*
+|--------------------------------------------------------------------------
+| USER AUTH ROUTES (BUTUH LOGIN)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:sanctum'])->group(function () {
 
-Route::get('/komunitas', [KomunitasController::class, 'index']);
-Route::post('/komunitas', [KomunitasController::class, 'store']);
-Route::patch('/komunitas/{id}/status', [KomunitasController::class, 'changeStatus']);
-Route::put('/komunitas/{id}', [KomunitasController::class, 'update']);
+    // user profile
+    Route::get('/profile', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    // USER dapat melihat komunitas & event, tapi tidak update admin
+    Route::get('/komunitas', [KomunitasController::class, 'index']);
+    Route::get('/events', [EventController::class, 'index']);
+
+    // USER juga boleh melihat berita
+    Route::get('/berita', [BeritaController::class, 'index']);
+});
 
 
-use App\Http\Controllers\EventController;
 
-Route::get('/events', [EventController::class, 'index']);
-Route::post('/events', [EventController::class, 'store']);
-Route::put('/events/{id}', [EventController::class, 'update']);
-Route::patch('/events/{id}/status', [EventController::class, 'changeStatus']);
-Route::put('/events/{id}', [EventController::class, 'update']);
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES (BUTUH ADMIN)
+|--------------------------------------------------------------------------
+*/
 
-use App\Http\Controllers\AdminUserController;
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 
-Route::get('/users', [AdminUserController::class, 'index']);
-Route::patch('/users/{id}/status', [AdminUserController::class, 'changeStatus']);
+    // ADMIN DASHBOARD
+    Route::get('/admin/stats', [AdminController::class, 'getStats']);
 
-use App\Http\Controllers\AdminController;
-Route::get('/admin/stats', [AdminController::class, 'getStats']);
+    // ADMIN - USERS
+    Route::get('/users', [AdminUserController::class, 'index']);
+    Route::patch('/users/{id}/status', [AdminUserController::class, 'changeStatus']);
 
+    // ADMIN - BERITA
+    Route::post('/berita', [BeritaController::class, 'store']);
+    Route::put('/berita/{id}', [BeritaController::class, 'update']);
+    Route::put('/berita/{id}/archive', [BeritaController::class, 'archive']);
+    Route::put('/berita/{id}/published', [BeritaController::class, 'publish']);
+
+    // ADMIN - KOMUNITAS
+    Route::post('/komunitas', [KomunitasController::class, 'store']);
+    Route::patch('/komunitas/{id}/status', [KomunitasController::class, 'changeStatus']);
+    Route::put('/komunitas/{id}', [KomunitasController::class, 'update']);
+
+    // ADMIN - EVENTS
+    Route::post('/events', [EventController::class, 'store']);
+    Route::put('/events/{id}', [EventController::class, 'update']);
+    Route::patch('/events/{id}/status', [EventController::class, 'changeStatus']);
+});
