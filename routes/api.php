@@ -9,75 +9,72 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminController;
 
-
 /*
 |--------------------------------------------------------------------------
-| PUBLIC ROUTES (TANPA LOGIN)
+| API Routes
 |--------------------------------------------------------------------------
 */
 
+// ===================== AUTH =====================
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
-// homepage user
-Route::get('/homepage-berita', [BeritaController::class, 'homepage']);
+// -------- Protected (Login Required) --------
+Route::middleware('auth:sanctum')->group(function () {
 
-
-
-/*
-|--------------------------------------------------------------------------
-| USER AUTH ROUTES (BUTUH LOGIN)
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['auth:sanctum'])->group(function () {
-
-    // user profile
+    // Profile user login
     Route::get('/profile', function (Request $request) {
         return $request->user();
     });
 
+    // Logout
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // USER dapat melihat komunitas & event, tapi tidak update admin
-    Route::get('/komunitas', [KomunitasController::class, 'index']);
-    Route::get('/events', [EventController::class, 'index']);
 
-    // USER juga boleh melihat berita
-    Route::get('/berita', [BeritaController::class, 'index']);
+    // ===================== ADMIN PROTECTED =====================
+    Route::middleware('is_admin')->group(function () {
+
+        // Dashboard admin
+        Route::get('/admin/dashboard', function () {
+            return ['message' => 'Welcome, admin!'];
+        });
+
+        // ===== BERITA ADMIN =====
+        Route::post('/berita', [BeritaController::class, 'store']); // tambah
+        Route::put('/berita/{id}', [BeritaController::class, 'update']); // update
+        Route::put('/berita/{id}/archive', [BeritaController::class, 'changeStatus']); // arsipkan
+        Route::put('/berita/{id}/publish', [BeritaController::class, 'changeStatus1']); // publish ulang
+
+        // ===== KOMUNITAS ADMIN =====
+        Route::post('/komunitas', [KomunitasController::class, 'store']);
+        Route::patch('/komunitas/{id}/status', [KomunitasController::class, 'changeStatus']);
+        Route::put('/komunitas/{id}', [KomunitasController::class, 'update']);
+
+        // ===== EVENTS ADMIN =====
+        Route::post('/events', [EventController::class, 'store']);
+        Route::put('/events/{id}', [EventController::class, 'update']);
+        Route::patch('/events/{id}/status', [EventController::class, 'changeStatus']);
+
+        // ===== USERS ADMIN =====
+        Route::get('/users', [AdminUserController::class, 'index']);
+        Route::patch('/users/{id}/status', [AdminUserController::class, 'changeStatus']);
+
+        // Statistik admin
+        Route::get('/admin/stats', [AdminController::class, 'getStats']);
+    });
+
 });
 
+// ===================== PUBLIC ROUTES =====================
 
+// BERITA (bebas akses)
+Route::get('/berita', [BeritaController::class, 'index']);
+Route::get('/homepage-berita', [BeritaController::class, 'homepage']);
 
-/*
-|--------------------------------------------------------------------------
-| ADMIN ROUTES (BUTUH ADMIN)
-|--------------------------------------------------------------------------
-*/
+// KOMUNITAS (bebas lihat)
+Route::get('/komunitas', [KomunitasController::class, 'index']);
 
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+// EVENTS (bebas lihat)
+Route::get('/events', [EventController::class, 'index']);
 
-    // ADMIN DASHBOARD
-    Route::get('/admin/stats', [AdminController::class, 'getStats']);
-
-    // ADMIN - USERS
-    Route::get('/users', [AdminUserController::class, 'index']);
-    Route::patch('/users/{id}/status', [AdminUserController::class, 'changeStatus']);
-
-    // ADMIN - BERITA
-    Route::post('/berita', [BeritaController::class, 'store']);
-    Route::put('/berita/{id}', [BeritaController::class, 'update']);
-    Route::put('/berita/{id}/archive', [BeritaController::class, 'archive']);
-    Route::put('/berita/{id}/published', [BeritaController::class, 'publish']);
-
-    // ADMIN - KOMUNITAS
-    Route::post('/komunitas', [KomunitasController::class, 'store']);
-    Route::patch('/komunitas/{id}/status', [KomunitasController::class, 'changeStatus']);
-    Route::put('/komunitas/{id}', [KomunitasController::class, 'update']);
-
-    // ADMIN - EVENTS
-    Route::post('/events', [EventController::class, 'store']);
-    Route::put('/events/{id}', [EventController::class, 'update']);
-    Route::patch('/events/{id}/status', [EventController::class, 'changeStatus']);
-});
