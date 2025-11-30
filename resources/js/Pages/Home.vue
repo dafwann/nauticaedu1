@@ -96,7 +96,7 @@ export default {
 
     async loadBerita() {
       try {
-        const res = await axios.get("http://localhost:8000/api/berita");
+        const res = await axios.get("https://web-production-39b5.up.railway.app/api/berita");
         const berita = res.data.data;
 
         // mapping backend → frontend

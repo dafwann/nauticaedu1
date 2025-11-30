@@ -72,7 +72,7 @@ export default {
             }
 
             try {
-                const res = await axios.post("http://localhost:8000/api/reset-password", {
+                const res = await axios.post("https://web-production-39b5.up.railway.app/api/reset-password", {
                     email: this.email,
                     password: this.password
                 });

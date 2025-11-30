@@ -185,7 +185,7 @@ export default {
       loading.value = true
 
       try {
-        const res = await fetch("http://localhost:8000/api/admin/stats")
+        const res = await fetch("https://web-production-39b5.up.railway.app/api/admin/stats")
         const data = await res.json()
 
         stats.value = {

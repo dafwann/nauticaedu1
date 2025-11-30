@@ -13,7 +13,7 @@
     ]
   },
   "resources/js/Pages/AboutUs.vue": {
-    "file": "assets/AboutUs-CTfOAaWL.js",
+    "file": "assets/AboutUs-BdaTtzEV.js",
     "name": "AboutUs",
     "src": "resources/js/Pages/AboutUs.vue",
     "isDynamicEntry": true,
@@ -25,7 +25,7 @@
     ]
   },
   "resources/js/Pages/Community.vue": {
-    "file": "assets/Community-B5gV7YlM.js",
+    "file": "assets/Community-CVeIW5os.js",
     "name": "Community",
     "src": "resources/js/Pages/Community.vue",
     "isDynamicEntry": true,
@@ -38,7 +38,7 @@
     ]
   },
   "resources/js/Pages/Course.vue": {
-    "file": "assets/Course-Dc3S5FHr.js",
+    "file": "assets/Course-CO5lzVLf.js",
     "name": "Course",
     "src": "resources/js/Pages/Course.vue",
     "isDynamicEntry": true,
@@ -50,7 +50,7 @@
     ]
   },
   "resources/js/Pages/Course1.vue": {
-    "file": "assets/Course1-BdRWvFxB.js",
+    "file": "assets/Course1-BaAeUF8m.js",
     "name": "Course1",
     "src": "resources/js/Pages/Course1.vue",
     "isDynamicEntry": true,
@@ -62,7 +62,7 @@
     ]
   },
   "resources/js/Pages/Course2.vue": {
-    "file": "assets/Course2-CQ7xPfZt.js",
+    "file": "assets/Course2-q9lYJCFi.js",
     "name": "Course2",
     "src": "resources/js/Pages/Course2.vue",
     "isDynamicEntry": true,
@@ -74,7 +74,7 @@
     ]
   },
   "resources/js/Pages/Course3.vue": {
-    "file": "assets/Course3-B5PV5yJN.js",
+    "file": "assets/Course3-B8j-PEo8.js",
     "name": "Course3",
     "src": "resources/js/Pages/Course3.vue",
     "isDynamicEntry": true,
@@ -86,7 +86,7 @@
     ]
   },
   "resources/js/Pages/Course4.vue": {
-    "file": "assets/Course4-DLeFL0PY.js",
+    "file": "assets/Course4-BVA6flqe.js",
     "name": "Course4",
     "src": "resources/js/Pages/Course4.vue",
     "isDynamicEntry": true,
@@ -98,7 +98,7 @@
     ]
   },
   "resources/js/Pages/Home.vue": {
-    "file": "assets/Home-C7OGom1Q.js",
+    "file": "assets/Home-CRNy_IR5.js",
     "name": "Home",
     "src": "resources/js/Pages/Home.vue",
     "isDynamicEntry": true,
@@ -107,11 +107,11 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/Home-BLjXS1pH.css"
+      "assets/Home-BXmI_skC.css"
     ]
   },
   "resources/js/Pages/Login.vue": {
-    "file": "assets/Login-DHcUnt5c.js",
+    "file": "assets/Login-C5lf7dH5.js",
     "name": "Login",
     "src": "resources/js/Pages/Login.vue",
     "isDynamicEntry": true,
@@ -124,7 +124,7 @@
     ]
   },
   "resources/js/Pages/Profile.vue": {
-    "file": "assets/Profile-CcNLOG8l.js",
+    "file": "assets/Profile-Cp3cykj7.js",
     "name": "Profile",
     "src": "resources/js/Pages/Profile.vue",
     "isDynamicEntry": true,
@@ -136,7 +136,7 @@
     ]
   },
   "resources/js/Pages/Quiz.vue": {
-    "file": "assets/Quiz-DEsPl4Dd.js",
+    "file": "assets/Quiz-BO7Xvcw9.js",
     "name": "Quiz",
     "src": "resources/js/Pages/Quiz.vue",
     "isDynamicEntry": true,
@@ -148,7 +148,7 @@
     ]
   },
   "resources/js/Pages/Register.vue": {
-    "file": "assets/Register-BoaFZvuC.js",
+    "file": "assets/Register-CKgA1b6v.js",
     "name": "Register",
     "src": "resources/js/Pages/Register.vue",
     "isDynamicEntry": true,
@@ -161,7 +161,7 @@
     ]
   },
   "resources/js/Pages/Reset-password.vue": {
-    "file": "assets/Reset-password-NU8fhG_M.js",
+    "file": "assets/Reset-password-Bn_usVKs.js",
     "name": "Reset-password",
     "src": "resources/js/Pages/Reset-password.vue",
     "isDynamicEntry": true,
@@ -170,11 +170,11 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/Reset-password-DtCEeeN6.css"
+      "assets/Reset-password-lfmygKxG.css"
     ]
   },
   "resources/js/Pages/admin/Berita.vue": {
-    "file": "assets/Berita-BwHFUw8h.js",
+    "file": "assets/Berita-CiYqOIym.js",
     "name": "Berita",
     "src": "resources/js/Pages/admin/Berita.vue",
     "isDynamicEntry": true,
@@ -187,7 +187,7 @@
     ]
   },
   "resources/js/Pages/admin/Dashboard.vue": {
-    "file": "assets/Dashboard-By94OcB5.js",
+    "file": "assets/Dashboard-CDJ6n9Sh.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/admin/Dashboard.vue",
     "isDynamicEntry": true,
@@ -195,11 +195,11 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/Dashboard-CNd-uPuj.css"
+      "assets/Dashboard-BpVZAqJP.css"
     ]
   },
   "resources/js/Pages/admin/Komunitas.vue": {
-    "file": "assets/Komunitas-BNJtUXIy.js",
+    "file": "assets/Komunitas-CcAyG_2y.js",
     "name": "Komunitas",
     "src": "resources/js/Pages/admin/Komunitas.vue",
     "isDynamicEntry": true,
@@ -207,11 +207,11 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/Komunitas-tAQh6zb0.css"
+      "assets/Komunitas-DAY8nZrE.css"
     ]
   },
   "resources/js/Pages/admin/Users.vue": {
-    "file": "assets/Users-CByZMWf-.js",
+    "file": "assets/Users-CbNqTyVe.js",
     "name": "Users",
     "src": "resources/js/Pages/admin/Users.vue",
     "isDynamicEntry": true,
@@ -224,7 +224,7 @@
     ]
   },
   "resources/js/Pages/admin/Volunteer.vue": {
-    "file": "assets/Volunteer-DIcPPkYv.js",
+    "file": "assets/Volunteer-Ttxo5I3R.js",
     "name": "Volunteer",
     "src": "resources/js/Pages/admin/Volunteer.vue",
     "isDynamicEntry": true,
@@ -232,11 +232,11 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/Volunteer-C_iBGz8i.css"
+      "assets/Volunteer-DzPQoEGc.css"
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-Bfj2fJZ6.js",
+    "file": "assets/app-DcdkaCs1.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -266,7 +266,7 @@
     ]
   },
   "resources/js/components/AdminLayout.vue": {
-    "file": "assets/AdminLayout-CoGzls9L.js",
+    "file": "assets/AdminLayout-CmshQ6Tu.js",
     "name": "AdminLayout",
     "src": "resources/js/components/AdminLayout.vue",
     "isDynamicEntry": true,

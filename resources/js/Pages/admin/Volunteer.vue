@@ -174,7 +174,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 
-const API = "http://localhost:8000/api/events"; // ← FIX MASALAHNYA DI SINI
+const API = "https://web-production-39b5.up.railway.app/api/events"; // ← FIX MASALAHNYA DI SINI
 
 const volunteer = ref([]);
 
