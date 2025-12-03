@@ -27,21 +27,25 @@ const AdminVolunteer = () => import('../Pages/admin/Volunteer.vue')
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/course', name: 'Course', component: Course },
-  { path: '/community', name: 'Community', component: Community },
-  { path: '/aboutus', name: 'AboutUs', component: AboutUs },
-  { path: '/profile', name: 'Profile', component: Profile },
-  { path: '/quiz', name: 'Quiz', component: Quiz },
 
-  { path: '/course/1', name: 'Course1', component: Course1 },
-  { path: '/course/2', name: 'Course2', component: Course2 },
-  { path: '/course/3', name: 'Course3', component: Course3 },
-  { path: '/course/4', name: 'Course4', component: Course4 },
+  // 🔐 wajib login
+  { path: '/course', name: 'Course', component: Course, meta: { requiresAuth: true } },
+  { path: '/community', name: 'Community', component: Community, meta: { requiresAuth: true } },
+  { path: '/profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } },
+
+  // 🔐 halaman course detail juga wajib login
+  { path: '/course/1', name: 'Course1', component: Course1, meta: { requiresAuth: true } },
+  { path: '/course/2', name: 'Course2', component: Course2, meta: { requiresAuth: true } },
+  { path: '/course/3', name: 'Course3', component: Course3, meta: { requiresAuth: true } },
+  { path: '/course/4', name: 'Course4', component: Course4, meta: { requiresAuth: true } },
+
+  { path: '/aboutus', name: 'AboutUs', component: AboutUs },
+  { path: '/quiz', name: 'Quiz', component: Quiz },
 
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
 
-  // ✅ hanya admin bisa akses
+  // reset password hanya admin
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword, meta: { requiresAdmin: true } },
 
   // Admin routes
@@ -59,8 +63,6 @@ const routes = [
   }
 ]
 
-
-
 const router = createRouter({
   history: createWebHistory(),
   routes,
@@ -71,19 +73,24 @@ const router = createRouter({
   }
 })
 
-
-// Route guard
+// Route Guard
 router.beforeEach((to, from, next) => {
   const isLoggedIn = localStorage.getItem('isLoggedIn')
   const userData = localStorage.getItem('userData')
 
+  // 🔒 Halaman yang wajib login
+  if (to.meta.requiresAuth) {
+    if (!isLoggedIn) return next('/login')
+  }
+
+  // 🔒 Halaman admin
   if (to.meta.requiresAdmin) {
     if (!isLoggedIn) return next('/login')
 
     try {
       const user = JSON.parse(userData)
-      if (user.role !== 'admin') return next('/') // non-admin dialihkan
-    } catch (e) {
+      if (user.role !== 'admin') return next('/') 
+    } catch {
       return next('/login')
     }
   }

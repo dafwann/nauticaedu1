@@ -31,7 +31,15 @@ Route::middleware('auth:sanctum')->group(function() {
 
     // logout
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // 🔥 WAJIB LOGIN untuk akses course & komunitas
+    Route::get('/komunitas', [KomunitasController::class, 'index']);
+    Route::post('/komunitas', [KomunitasController::class, 'store']);
+
+    Route::get('/courses', [CourseController::class, 'index']);
+    Route::post('/courses', [CourseController::class, 'store']);
 });
+
 
 
 // --- (OPSI) ROUTE ADMIN ---
