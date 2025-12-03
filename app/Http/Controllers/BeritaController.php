@@ -9,7 +9,8 @@ class BeritaController extends Controller
 {
     /**
      * USER & ADMIN
-     * Ambil hanya 5 berita dengan status published
+     * Ambil hanya 5 berita dengan status published.
+     * - Memenuhi prinsip SRP (fungsi hanya mengambil data).
      */
     public function index()
     {
@@ -26,7 +27,8 @@ class BeritaController extends Controller
 
     /**
      * USER Homepage
-     * Reuse fungsi index (SOLID - DRY)
+     * Reuse fungsi index -> contoh DRY (Don't Repeat Yourself)
+     * dan SOLID - SRP (tidak duplikasi logic).
      */
     public function homepage()
     {
@@ -35,14 +37,15 @@ class BeritaController extends Controller
 
     /**
      * ADMIN
-     * Tambah berita baru
+     * Tambah berita baru.
+     * - Validasi dilakukan sebelum create → SRP.
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'foto' => 'required|string|max:255',
-            'link' => 'required|string|max:255',
+            'foto'  => 'required|string|max:255',
+            'link'  => 'required|string|max:255',
         ]);
 
         // default status
@@ -51,15 +54,16 @@ class BeritaController extends Controller
         $berita = Berita::create($validated);
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Berita berhasil ditambahkan',
-            'data' => $berita
+            'data'    => $berita
         ], 201);
     }
 
     /**
      * ADMIN
-     * Update data berita
+     * Update data berita.
+     * - Menggunakan fillable Eloquent → Aman.
      */
     public function update(Request $request, $id)
     {
@@ -67,55 +71,52 @@ class BeritaController extends Controller
 
         $validated = $request->validate([
             'judul' => 'nullable|string|max:255',
-            'foto' => 'nullable|string|max:255',
-            'link' => 'nullable|string|max:255',
+            'foto'  => 'nullable|string|max:255',
+            'link'  => 'nullable|string|max:255',
         ]);
 
         $berita->update($validated);
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Berita berhasil diperbarui',
-            'data' => $berita
+            'data'    => $berita
         ]);
     }
 
     /**
      * ADMIN
-     * Mengubah status berita jadi archived
+     * Mengubah status berita jadi archived.
+     * - Memenuhi SRP: 1 fungsi hanya mengubah status.
      */
     public function changeStatus($id)
     {
         $berita = Berita::findOrFail($id);
-
         $berita->status = 'archived';
         $berita->save();
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Berita berhasil diarsipkan',
-            'data' => $berita
+            'data'    => $berita
         ]);
     }
 
-        /**
+    /**
      * ADMIN
-     * Mengubah status berita jadi archived
+     * Mengubah status berita jadi published.
+     * (nama fungsi tidak diubah agar tidak rusak routing).
      */
     public function changeStatus1($id)
     {
         $berita = Berita::findOrFail($id);
-
         $berita->status = 'published';
         $berita->save();
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Berita berhasil dipublikasikan',
-            'data' => $berita
+            'data'    => $berita
         ]);
     }
-
-
-
 }

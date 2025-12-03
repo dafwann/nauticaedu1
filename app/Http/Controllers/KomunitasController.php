@@ -5,20 +5,40 @@ namespace App\Http\Controllers;
 use App\Models\Komunitas;
 use Illuminate\Http\Request;
 
+/**
+ * Class KomunitasController
+ *
+ * Controller ini mengelola seluruh proses CRUD untuk data Komunitas.
+ * Menggunakan prinsip OOP dengan inheritance (extends Controller)
+ * dan menerapkan SOLID secara natural melalui struktur Laravel.
+ *
+ * - SRP: Tiap method hanya punya satu tanggung jawab.
+ * - OCP: Bisa dikembangkan tanpa mengubah struktur inti.
+ * - DIP: Menggunakan Eloquent Komunitas (abstraksi ORM).
+ */
 class KomunitasController extends Controller
 {
-    // LIST TANPA BATAS
+    /**
+     * Mengambil seluruh data komunitas tanpa batasan jumlah.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $komunitas = Komunitas::orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => true,
-            'data' => $komunitas
+            'data'   => $komunitas
         ]);
     }
 
-    // TAMBAH DATA
+    /**
+     * Menambahkan komunitas baru.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -27,18 +47,25 @@ class KomunitasController extends Controller
             'link' => 'required|string|max:255',
         ]);
 
+        // Status default
         $validated['status'] = 'aktif';
 
         $komunitas = Komunitas::create($validated);
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Komunitas berhasil ditambahkan',
-            'data' => $komunitas
+            'data'    => $komunitas
         ], 201);
     }
 
-    // EDIT DATA
+    /**
+     * Menupdate komunitas yang sudah ada.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request, $id)
     {
         $komunitas = Komunitas::findOrFail($id);
@@ -53,10 +80,9 @@ class KomunitasController extends Controller
         $komunitas->update($validated);
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Komunitas berhasil diperbarui',
-            'data' => $komunitas
+            'data'    => $komunitas
         ]);
     }
-
 }

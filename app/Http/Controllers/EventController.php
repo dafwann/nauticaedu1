@@ -5,20 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
+/**
+ * Class EventController
+ *
+ * Controller ini menangani seluruh proses CRUD dan perubahan status
+ * untuk data Event. Controller ini sudah mengikuti prinsip OOP melalui
+ * konsep inheritance (extends Controller) dan menerapkan SOLID terutama:
+ *
+ * - SRP: Setiap method memiliki satu tanggung jawab.
+ * - OCP: Mudah dikembangkan tanpa perlu mengubah struktur yang sudah ada.
+ * - DIP: Menggunakan model Event (abstraksi Laravel ORM) tanpa membuat
+ *        instance manual.
+ */
 class EventController extends Controller
 {
-    // LIST TANPA BATAS
+    /**
+     * Mengambil seluruh event yang tersedia (tanpa pagination).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $events = Event::orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => true,
-            'data' => $events
+            'data'   => $events
         ]);
     }
 
-    // TAMBAH DATA
+    /**
+     * Menambah event baru.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -27,18 +48,25 @@ class EventController extends Controller
             'link' => 'required|string|max:255',
         ]);
 
+        // Default status event
         $validated['status'] = 'aktif';
 
         $event = Event::create($validated);
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Event berhasil ditambahkan',
-            'data' => $event
+            'data'    => $event
         ], 201);
     }
 
-    // EDIT DATA (WAJIB SEMUA FIELD)
+    /**
+     * Update data event yang sudah ada (semua field wajib).
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request, $id)
     {
         $event = Event::findOrFail($id);
@@ -53,13 +81,19 @@ class EventController extends Controller
         $event->update($validated);
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Event berhasil diperbarui',
-            'data' => $event
+            'data'    => $event
         ]);
     }
 
-    // UBAH STATUS AKTIF / NON-AKTIF
+    /**
+     * Mengubah status event menjadi aktif atau non-aktif.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changeStatus(Request $request, $id)
     {
         $event = Event::findOrFail($id);
@@ -72,9 +106,9 @@ class EventController extends Controller
         $event->save();
 
         return response()->json([
-            'status' => true,
+            'status'  => true,
             'message' => 'Status event diperbarui',
-            'data' => $event
+            'data'    => $event
         ]);
     }
 }
