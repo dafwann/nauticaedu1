@@ -118,7 +118,7 @@
           <router-link to="/admin/events" class="action-card">
             <div class="action-icon">🤝</div>
             <div class="action-content">
-              <h3>Kelola Event</h3>
+              <h3>Kelola Volunteer</h3>
               <p>Management kegiatan & volunteer</p>
             </div>
           </router-link>
