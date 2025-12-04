@@ -81,7 +81,6 @@
         });
 
         /* --- NAV ACTIVE ON SCROLL (SCROLL SPY) --- */
-        const profileIcon = document.querySelector(".profile-icon");
         const about = document.querySelector("#aboutus");
 
         window.addEventListener("scroll", () => {

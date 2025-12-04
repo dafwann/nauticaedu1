@@ -8,12 +8,12 @@
         <a href="#community" data-section="community">Community</a>
         <a href="#aboutus" data-section="aboutus">About Us</a>
       </nav>
-      <div class="profile-icon">
+      <router-link to="/profile" class="profile-icon">
         <svg class="profile-svg" viewBox="0 0 24 24">
-          <circle cx="12" cy="7" r="5"/>
-          <path d="M12 14c-6 0-10 3-10 7h20c0-4-4-7-10-7z"/>
-        </svg>      
-      </div>
+          <circle cx="12" cy="7" r="5" />
+          <path d="M12 14c-6 0-10 3-10 7h20c0-4-4-7-10-7z" />
+        </svg>
+      </router-link>
     </header>
     
     <section id="home" class="hero">
@@ -81,7 +81,6 @@
         });
 
         /* --- NAV ACTIVE ON SCROLL (SCROLL SPY) --- */
-        const profileIcon = document.querySelector(".profile-icon");
         const about = document.querySelector("#aboutus");
 
         window.addEventListener("scroll", () => {
@@ -114,6 +113,18 @@
 
 
 <style>
+    .profile-icon {
+      pointer-events: auto;
+    }
+    .profile-icon svg {
+      pointer-events: none;
+    }
+
+    .main-header {
+      z-index: 9999 !important;
+    }
+
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0; padding: 0;

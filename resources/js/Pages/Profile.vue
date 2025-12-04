@@ -102,49 +102,40 @@ export default {
 
 <style scoped>
 .profile-page {
-    padding-top: 30px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     position: relative;
-    overflow-x: hidden;
-    transform: translateZ(0);
-    z-index: 2;
+    min-height: 100vh;
 }
 
 .profile-page::before {
-    content: ""; 
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('/foto/bgprofile.jpg') no-repeat top center;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/foto/bgprofile.jpg') no-repeat center top;
     background-size: cover;
-    z-index: 2;
-    pointer-events: none;
+    z-index: -1;   /* jalan aman */
 }
 
 .container {
-    padding-top: 50px;
+    padding-top: 80px;
     max-width: 1100px;
-    margin: 0 auto 24px auto;
-    width: calc(100% - 40px);
+    margin: 0 auto 14px auto;
+    width: calc(80% - 80px);
     display: grid;
     grid-template-columns: 1fr;
     gap: 18px;
     z-index: 2;
     position: relative;
     flex: 1;
-    min-height: calc(100vh - 50px);
+    min-height: calc(50vh - 50px);
 }
 
 .card {
     background: rgba(255,255,255,0.95);
     border-radius: 12px;
-    padding: 18px;
+    padding: 10px 14px; /* lebih tipis */
     box-shadow: 0 6px 20px rgba(11,91,168,0.06);
 }
+
 
 .profile-card {
     display: flex;

@@ -283,11 +283,15 @@ onMounted(fetchData);
 
 
 <style scoped>
+    * {
+        font-family: "Karla", sans-serif !important;
+    }
+
     .admin-komunitas {
     min-height: 100vh;
     background: #f8f9fa;
     padding-bottom: 20px;
-    font-family: karla, serif;
+    font-family: "Times New Roman", Times, serif;
     }
 
     /* Header */
@@ -413,32 +417,27 @@ onMounted(fetchData);
     /* Lebar kolom */
     .komunitas-table th:nth-child(1),
     .komunitas-table td:nth-child(1) {
-    width: 120px; /* Gambar */
+        width: 20px;
     }
 
     .komunitas-table th:nth-child(2),
     .komunitas-table td:nth-child(2) {
-    width: 250px; /* Nama Komunitas */
+        width: 25%;
     }
 
     .komunitas-table th:nth-child(3),
     .komunitas-table td:nth-child(3) {
-    width: 200px; /* Penyelenggara */
+        width: 20%;
     }
 
     .komunitas-table th:nth-child(4),
     .komunitas-table td:nth-child(4) {
-    width: 300px; /* Link */
+        width: 10%;
     }
 
     .komunitas-table th:nth-child(5),
     .komunitas-table td:nth-child(5) {
-    width: 100px; /* Status */
-    }
-
-    .komunitas-table th:nth-child(6),
-    .komunitas-table td:nth-child(6) {
-    width: 150px; /* Aksi */
+        width: 1px;
     }
 
     .komunitas-table th,

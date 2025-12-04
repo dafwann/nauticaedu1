@@ -19,6 +19,10 @@ export default {
 </script>
 
 <style scoped>
+    * {
+        font-family: "Karla", sans-serif !important;
+    }
+
     .admin-layout {
         display: flex;
         min-height: 100vh;

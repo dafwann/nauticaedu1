@@ -169,51 +169,70 @@ export default {
     const berita = ref([])
     const editingBerita = ref(null)
 
+    // === POSISI DARI CODE BARU (STRING) ===
     const positions = ref([
-      { id: 1, label: 'Large 1', description: 'Berita utama (full width)' },
-      { id: 2, label: 'Large 2', description: 'Berita besar kiri' },
-      { id: 3, label: 'Large 3', description: 'Berita tinggi kanan' },
-      { id: 4, label: 'Small 1', description: 'Berita kecil kiri bawah' },
-      { id: 5, label: 'Small 2', description: 'Berita kecil kanan bawah' }
+      { id: 'large1', label: 'Large 1', description: 'Berita utama (full width)' },
+      { id: 'large2', label: 'Large 2', description: 'Berita besar kiri' },
+      { id: 'large3', label: 'Large 3', description: 'Berita tinggi kanan' },
+      { id: 'small1', label: 'Small 1', description: 'Berita kecil kiri bawah' },
+      { id: 'small2', label: 'Small 2', description: 'Berita kecil kanan bawah' }
     ])
 
+    // === LABEL POSISI ===
     const getPositionLabel = (id) => {
       const pos = positions.value.find(p => p.id === id)
       return pos ? pos.label : id
     }
 
+    // === FETCH API ===
     const fetchBerita = async () => {
       try {
         const res = await axios.get('https://web-production-39b5.up.railway.app/api/berita')
-        berita.value = res.data.data.map(item => ({
+
+        // fallback posisi default
+        const fallbackOrder = ['large1', 'large2', 'large3', 'small1', 'small2']
+
+        berita.value = res.data.data.map((item, index) => ({
           id: item.id,
-          position: item.id,
+
+          // Fallback aman
+          position: item.position && item.position !== ""
+            ? item.position
+            : fallbackOrder[index] || 'small2',
+
           title: item.judul,
           image: item.foto,
           link: item.link,
           status: item.status
         }))
+
       } catch (error) {
         console.error('Gagal fetch berita:', error)
       }
     }
 
-    const showImagePreview = (url) => window.open(url, '_blank')
-    const handleImageError = (event) => event.target.style.display = 'none'
 
+    const showImagePreview = (url) => window.open(url, '_blank')
+    const handleImageError = (event) => (event.target.style.display = 'none')
+
+    // === EDIT ===
     const editBerita = (item) => {
       editingBerita.value = { ...item }
     }
 
-    const cancelEdit = () => editingBerita.value = null
+    const cancelEdit = () => (editingBerita.value = null)
 
     const saveBerita = async () => {
       try {
-        await axios.put(`https://web-production-39b5.up.railway.app/api/berita/${editingBerita.value.id}`, {
-          judul: editingBerita.value.title,
-          foto: editingBerita.value.image,
-          link: editingBerita.value.link
-        })
+        await axios.put(
+          `https://web-production-39b5.up.railway.app/api/berita/${editingBerita.value.id}`,
+          {
+            judul: editingBerita.value.title,
+            link: editingBerita.value.link,
+            foto: editingBerita.value.image,
+            position: editingBerita.value.position
+          }
+        )
 
         const index = berita.value.findIndex(b => b.id === editingBerita.value.id)
         if (index !== -1) berita.value[index] = { ...editingBerita.value }
@@ -224,6 +243,7 @@ export default {
       }
     }
 
+    // === TOGGLE STATUS ===
     const toggleBeritaStatus = async (item) => {
       try {
         const endpoint =
@@ -233,18 +253,17 @@ export default {
 
         const res = await axios.put(endpoint)
 
-        // Update data pada table
         item.status = res.data.data.status
         item.title = res.data.data.judul
         item.link = res.data.data.link
         item.image = res.data.data.foto
-
+        item.position = res.data.data.position // update posisi jika berubah
       } catch (error) {
         console.error('Gagal update status:', error)
       }
     }
 
-    onMounted(() => fetchBerita())
+    onMounted(fetchBerita)
 
     return {
       berita,
@@ -264,6 +283,11 @@ export default {
 
 
 <style scoped>
+
+    * {
+        font-family: "Karla", sans-serif !important;
+    }
+
     .admin-berita {
     min-height: 100vh;
     background: #f8f9fa;

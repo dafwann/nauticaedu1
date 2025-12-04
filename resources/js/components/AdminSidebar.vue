@@ -87,6 +87,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .sidebar {
   width: 250px;
   background: linear-gradient(135deg, #0860b8 0%, #003a61 100%);

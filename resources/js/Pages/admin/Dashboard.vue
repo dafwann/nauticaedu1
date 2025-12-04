@@ -115,7 +115,7 @@
             </div>
           </router-link>
 
-          <router-link to="/admin/events" class="action-card">
+          <router-link to="/admin/volunteer" class="action-card">
             <div class="action-icon">🤝</div>
             <div class="action-content">
               <h3>Kelola Volunteer</h3>
@@ -239,6 +239,10 @@ export default {
 
 
 <style scoped>
+* {
+    font-family: "Karla", sans-serif !important;
+}
+
 /* Base Layout */
 .admin-dashboard {
   min-height: 100vh;

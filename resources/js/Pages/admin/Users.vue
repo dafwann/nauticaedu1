@@ -370,7 +370,10 @@ export default {
 
 
 <style scoped>
-/* Previous CSS tetap sama, hanya ubah bagian yang berhubungan dengan role badge dan action buttons */
+* {
+    font-family: "Karla", sans-serif !important;
+}
+
 
 /* Role badges - hanya 2 role */
 .role-badge {

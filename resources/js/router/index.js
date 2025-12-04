@@ -80,7 +80,7 @@ router.beforeEach((to, from, next) => {
 
   // 🔒 Halaman yang wajib login
   if (to.meta.requiresAuth) {
-    if (!isLoggedIn) return next('/login')
+    if (!isLoggedIn || isLoggedIn !== 'true') return next('/login')
   }
 
   // 🔒 Halaman admin
