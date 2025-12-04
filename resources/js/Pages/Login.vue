@@ -17,7 +17,7 @@
 
           <!-- Email/Username Input -->
           <div class="input-group">
-            <label for="email" class="form-label">Email or Username</label>
+            <label for="email" class="form-label">Email</label>
             <input
               type="text"
               id="email"
