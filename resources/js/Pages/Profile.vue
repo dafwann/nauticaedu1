@@ -11,12 +11,12 @@
                     <div class="avatar">
                         <img v-if="user.avatar" :src="user.avatar" alt="Profile" class="avatar-image" />
                         <div v-else class="avatar-placeholder">
-                            {{ user.name ? user.name.charAt(0).toUpperCase() : 'U' }}
+                            {{ user.username ? user.username.charAt(0).toUpperCase() : 'U' }}
                         </div>
                     </div>
 
                     <div class="profile-meta">
-                        <h2 class="username">{{ user.name }}</h2>
+                        <h2 class="username">{{ user.username }}</h2>
                         <p class="email">{{ user.email }}</p>
                     </div>
                 </div>
@@ -46,9 +46,8 @@ export default {
     data() {
         return {
             user: { 
-                name: 'Guest', 
+                username: 'Guest',
                 email: 'guest@example.com',
-                username: 'guest',
                 avatar: ''
             }
         }
@@ -66,9 +65,8 @@ export default {
             if (savedUserData) {
                 const u = JSON.parse(savedUserData)
                 this.user = {
-                    name: u.name || 'User',
+                    username: u.username || 'Username',
                     email: u.email || 'No email',
-                    username: u.username || u.name || 'User',
                     avatar: u.avatar || ''
                 }
             } else {
@@ -98,6 +96,7 @@ export default {
     }
 }
 </script>
+
 
 
 <style scoped>
