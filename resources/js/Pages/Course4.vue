@@ -75,21 +75,6 @@
               <span class="btn-text">{{ buttonText }}</span>
               <div class="btn-sparkle" v-for="n in 6" :key="n"></div>
             </button>
-            
-            <div class="pledge-stats">
-              <div class="stat">
-                <div class="stat-number">1,247</div>
-                <div class="stat-label">Orang telah berjanji</div>
-              </div>
-              <div class="stat">
-                <div class="stat-number">5.2K</div>
-                <div class="stat-label">Plastik dihindari</div>
-              </div>
-              <div class="stat">
-                <div class="stat-number">89</div>
-                <div class="stat-label">Komunitas bergabung</div>
-              </div>
-            </div>
           </div>
         </section>
       </div>
@@ -120,7 +105,7 @@
         <div class="celebration-message">
           <div class="message-icon">🎉</div>
           <h2>Terima Kasih!</h2>
-          <p>Janjimu telah tercatat dan akan membuat perbedaan untuk laut kita</p>
+          <p>Mari bersama membuat perbedaan untuk laut kita</p>
           <div class="celebration-emoji">🌊🌟💙</div>
           <button class="close-btn" @click="closeCelebration">Lanjutkan</button>
         </div>
