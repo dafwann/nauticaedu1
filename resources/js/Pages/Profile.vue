@@ -49,6 +49,21 @@ export default {
                 username: 'Guest',
                 email: 'guest@example.com',
                 avatar: ''
+            },
+            loaded: false // untuk menunggu load data
+        }
+    },
+
+    computed: {
+        isLoggedIn() {
+            return localStorage.getItem('isLoggedIn') === 'true'
+        }
+    },
+
+    watch: {
+        isLoggedIn(newVal) {
+            if (!newVal && this.loaded) {
+                this.$router.push('/login')
             }
         }
     },
@@ -60,8 +75,12 @@ export default {
 
     methods: {
         loadUserData() {
-            const savedUserData = localStorage.getItem('userData')
+            if (!this.isLoggedIn) {
+                this.$router.push('/login')
+                return
+            }
 
+            const savedUserData = localStorage.getItem('userData')
             if (savedUserData) {
                 const u = JSON.parse(savedUserData)
                 this.user = {
@@ -69,9 +88,8 @@ export default {
                     email: u.email || 'No email',
                     avatar: u.avatar || ''
                 }
-            } else {
-                this.$router.push('/login')
             }
+            this.loaded = true
         },
 
         logout() {
@@ -96,7 +114,6 @@ export default {
     }
 }
 </script>
-
 
 
 <style scoped>

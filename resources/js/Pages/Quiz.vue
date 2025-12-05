@@ -72,9 +72,20 @@
         <div v-if="step === 'finish'" class="overlay-center">
         <div class="finish-box">
             <h1 class="finish-title">SELAMATT!! QUIZNYA UDAH KELAR!</h1>
-            <p class="finish-sub">You did a wonderfull job!!</p>
+            <p class="finish-sub">You did a wonderful job!!</p>
+            
+            <div class="score-display" v-if="score !== undefined">
+                <p class="score-text">Skor: {{ score }}/{{ questions.length }}</p>
+            </div>
+            
+            <div class="countdown-timer">
+                <p>Kembali ke halaman course dalam <span class="countdown-number">{{ countdown }}</span> detik</p>
+            </div>
 
             <div class="finish-actions">
+                <button class="btn btn-primary" @click="redirectToCourse">
+                    Kembali ke Course Sekarang
+                </button>
             </div>
         </div>
         </div>
@@ -95,11 +106,15 @@ export default {
     name: "Quiz",
     data() {
         return {
-        step: "start", 
+        step: "start",
         currentIndex: 0,
-        answers: [],            
-        showAnswer: false,      
+        answers: [],
+        showAnswer: false,
         showQuit: false,
+        score: 0,
+        redirectTimer: null,
+        countdownSeconds: 5,
+        countdownInterval: null,
         questions: [
             {
             image: "/foto/quiz1.png",
@@ -183,6 +198,9 @@ export default {
             backgroundPosition: "center",
             minHeight: "100vh"
         };
+        },
+        countdown() {
+        return this.countdownSeconds;
         }
     },
     methods: {
@@ -207,7 +225,24 @@ export default {
         } else {
             this.score = this.automaticScore();
             this.step = "finish";
+            
+            // Mulai countdown untuk redirect
+            this.startCountdown();
         }
+        },
+        startCountdown() {
+            // Reset countdown
+            this.countdownSeconds = 5;
+            
+            // Mulai interval untuk update countdown
+            this.countdownInterval = setInterval(() => {
+                this.countdownSeconds--;
+                
+                // Jika countdown habis, redirect
+                if (this.countdownSeconds <= 0) {
+                    this.redirectToCourse();
+                }
+            }, 1000); // Update setiap 1 detik
         },
         nextQuestion() {
         if (!this.showAnswer) {
@@ -234,8 +269,10 @@ export default {
         this.answers = [];
         this.showAnswer = false;
         this.score = 0;
+        this.clearTimers();
         },
         goHome() {
+        this.clearTimers();
         if (this.$router) {
             this.$router.push("/course");
         } else {
@@ -248,7 +285,36 @@ export default {
         quitToStart() {
         this.showQuit = false;
         this.restart();
+        },
+        redirectToCourse() {
+            // Hapus semua timer
+            this.clearTimers();
+            
+            // Redirect ke halaman course
+            if (this.$router) {
+                this.$router.push("/course");
+            } else {
+                console.log("Redirect ke course");
+                window.location.href = "/course";
+            }
+        },
+        clearTimers() {
+            // Hapus interval countdown
+            if (this.countdownInterval) {
+                clearInterval(this.countdownInterval);
+                this.countdownInterval = null;
+            }
+            
+            // Hapus redirect timer
+            if (this.redirectTimer) {
+                clearTimeout(this.redirectTimer);
+                this.redirectTimer = null;
+            }
         }
+    },
+    beforeDestroy() {
+        // Bersihkan timer saat komponen dihancurkan
+        this.clearTimers();
     }
 };
 </script>
@@ -586,6 +652,34 @@ export default {
     font-size: 30px;
     font-weight: 500;
     margin-bottom: 40px;
+    }
+
+    .score-display {
+    margin: 20px 0;
+    }
+
+    .score-text {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0a74ff;
+    margin-bottom: 30px;
+    }
+
+    .countdown-timer {
+    margin: 25px 0 35px;
+    font-size: 20px;
+    color: #666;
+    }
+
+    .countdown-number {
+    font-weight: 800;
+    color: #0a74ff;
+    font-size: 26px;
+    margin: 0 5px;
+    }
+
+    .finish-actions {
+    margin-top: 20px;
     }
 
     .finish-actions .btn-primary {
