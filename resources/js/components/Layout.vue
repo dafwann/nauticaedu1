@@ -124,19 +124,9 @@ export default {
       }
     }
 
-    // Handle profile icon click dengan error handling
+    // Handle profile icon click tanpa cek login
     const handleProfileClick = () => {
-      try {
-        if (isLoggedIn.value) {
-          router.push('/profile')
-        } else {
-          router.push('/login')
-        }
-      } catch (error) {
-        console.error('Error handling profile click:', error)
-        // Fallback ke halaman login
-        router.push('/login')
-      }
+      router.push('/profile')
     }
 
     // Update login status dengan error handling
